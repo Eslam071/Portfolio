@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio · Eslam</title>
+    <title>Eslam Wael · Mechatronics Engineer</title>
     <style>
-        /* ----- reset & variables ----- */
+        /* ----- reset & base ----- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
 
         :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
-            --accent: #38bdf8;
-            --secondary: #334155;
-            --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            --radius: 18px;
+            --bg: #0b1120;
+            --card: #141e33;
+            --card-hover: #1a2a45;
+            --text: #f0f4ff;
+            --text-secondary: #b0c4e8;
+            --accent: #4fc3f7;
+            --accent2: #7c4dff;
+            --accent-glow: rgba(79, 195, 247, 0.12);
+            --border: rgba(255, 255, 255, 0.06);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            --radius: 20px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .light {
-            --bg: #f5f7fa;
+            --bg: #f0f4ff;
             --card: #ffffff;
-            --text: #111827;
-            --accent: #2563eb;
-            --secondary: #e5e7eb;
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --card-hover: #f5f9ff;
+            --text: #0b1a33;
+            --text-secondary: #2a405e;
+            --accent: #0d6efd;
+            --accent2: #6f42c1;
+            --accent-glow: rgba(13, 110, 253, 0.06);
+            --border: rgba(0, 0, 0, 0.06);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
         html {
@@ -37,10 +45,23 @@
         }
 
         body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            transition: background 0.3s, color 0.3s;
-            line-height: 1.6;
+            transition: background 0.4s, color 0.3s;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
         }
 
         /* ----- nav ----- */
@@ -48,146 +69,469 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 16px 8%;
+            padding: 14px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(11, 17, 32, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .light nav {
+            background: rgba(240, 244, 255, 0.85);
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--accent);
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 32px;
+            align-items: center;
         }
-
         .nav-links a {
             text-decoration: none;
-            color: var(--text);
+            color: var(--text-secondary);
             font-weight: 500;
-            transition: color 0.2s;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            position: relative;
         }
-
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transition: 0.3s;
+        }
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--text);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .toggle-btn {
             border: none;
-            padding: 8px 18px;
+            padding: 6px 16px;
             border-radius: 40px;
+            background: var(--card);
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+        }
+        .toggle-btn:hover {
             background: var(--accent);
             color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.04);
-            opacity: 0.9;
+            border-color: var(--accent);
         }
 
         /* ----- sections ----- */
         section {
-            padding: 90px 8% 60px;
-            min-height: 80vh;
+            padding: 100px 6% 70px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        h2 {
-            font-size: 2.4rem;
-            margin-bottom: 30px;
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
             position: relative;
             display: inline-block;
         }
-
-        h2::after {
+        .section-title::after {
             content: '';
             position: absolute;
             left: 0;
             bottom: -8px;
-            width: 60px;
+            width: 50px;
             height: 4px;
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
             border-radius: 4px;
         }
 
         /* ----- hero ----- */
         .hero {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: 100vh;
-            padding-top: 40px;
+            padding: 120px 6% 80px;
+            animation: fadeUp 1s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(79, 195, 247, 0.15);
         }
 
         .hero h1 {
-            font-size: 4.2rem;
-            font-weight: 700;
-            line-height: 1.2;
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
         }
-
         .hero h1 span {
-            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .typing {
-            margin-top: 20px;
-            font-size: 1.8rem;
-            font-weight: 400;
+        .hero .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 12px;
+        }
+
+        .hero .typing {
+            font-size: 1.2rem;
             color: var(--accent);
-            min-height: 4rem;
-            letter-spacing: 0.5px;
+            min-height: 2.8rem;
+            font-weight: 500;
         }
 
         .hero-btn {
-            margin-top: 32px;
-            padding: 14px 38px;
+            padding: 14px 44px;
             border: none;
             border-radius: 60px;
-            background: var(--accent);
-            color: white;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.25);
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(79, 195, 247, 0.25);
+            margin-top: 20px;
         }
-
         .hero-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(56, 189, 248, 0.35);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(79, 195, 247, 0.35);
         }
 
         /* ----- about card ----- */
         .card {
             background: var(--card);
-            backdrop-filter: blur(4px);
             border-radius: var(--radius);
-            padding: 30px 36px;
-            margin-top: 10px;
+            padding: 32px 38px;
             box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
             transition: 0.3s;
             max-width: 1000px;
         }
-
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+        }
         .card p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ----- education (tree style) ----- */
+        .education-tree {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid var(--accent);
+        }
+        .education-tree .edu-item {
+            position: relative;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .education-tree .edu-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 28px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+        .education-tree .edu-item:hover {
+            transform: translateX(8px);
+            border-color: var(--accent);
+            background: var(--card-hover);
+        }
+        .edu-item .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+        .edu-item .edu-title {
             font-size: 1.2rem;
-            line-height: 1.7;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .edu-item .edu-school {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .edu-item .edu-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            background: var(--bg);
+            padding: 2px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .edu-item .edu-desc {
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        .edu-item .edu-desc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .edu-item .edu-desc ul li {
+            padding: 3px 0 3px 24px;
+            position: relative;
+        }
+        .edu-item .edu-desc ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* ----- experience (tree style) ----- */
+        .exp-tree {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid var(--accent2);
+        }
+        .exp-tree .exp-item {
+            position: relative;
+            padding: 22px 28px;
+            margin-bottom: 24px;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .exp-tree .exp-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 28px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent2);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 3px var(--accent2);
+        }
+        .exp-tree .exp-item:hover {
+            transform: translateX(8px);
+            border-color: var(--accent2);
+            background: var(--card-hover);
+        }
+
+        .exp-item .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin-bottom: 8px;
+        }
+        .exp-item .exp-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .exp-item .exp-company {
+            color: var(--accent2);
+            font-weight: 600;
+        }
+        .exp-item .exp-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            background: var(--bg);
+            padding: 2px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .exp-item .exp-desc {
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+        .exp-item .exp-desc ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 4px;
+        }
+        .exp-item .exp-desc ul li {
+            padding: 3px 0 3px 24px;
+            position: relative;
+        }
+        .exp-item .exp-desc ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent2);
+        }
+        .exp-item .exp-achievement {
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: var(--accent-glow);
+            border-radius: 12px;
+            border-left: 3px solid var(--accent2);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .exp-item .exp-achievement strong {
+            color: var(--accent2);
+        }
+
+        /* ----- skills section ----- */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: var(--card);
+            padding: 32px 36px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+        }
+        .skills-grid:hover {
+            border-color: var(--accent);
+        }
+        .skill-tag {
+            display: inline-block;
+            background: var(--bg);
+            color: var(--text-secondary);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+        .skill-tag:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ----- certificates grid (clickable) ----- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .cert-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .cert-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        .cert-card h3 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .cert-card .cert-issuer {
+            color: var(--accent2);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .cert-card .cert-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            display: block;
+            margin-top: 4px;
+        }
+        .cert-card .cert-preview {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            opacity: 0.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .cert-card .click-hint {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            opacity: 0.4;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+        .cert-card:hover .click-hint {
+            opacity: 0.8;
+            color: var(--accent);
+        }
+        .cert-card .click-hint::after {
+            content: '↗';
+            font-size: 1rem;
         }
 
         /* ----- projects grid ----- */
@@ -195,152 +539,113 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 28px;
-            margin-top: 10px;
         }
 
         .project-card {
             background: var(--card);
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: 0.25s ease;
+            border: 1px solid var(--border);
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.04);
             display: flex;
             flex-direction: column;
         }
-
         .project-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px) scale(1.01);
+            border-color: var(--accent);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
         }
-
         .project-card img {
             width: 100%;
-            height: 190px;
+            height: 200px;
             object-fit: cover;
-            background: var(--secondary);
-            transition: 0.3s;
+            background: var(--bg);
+            transition: 0.4s;
         }
-
         .project-card:hover img {
-            filter: brightness(1.05);
+            transform: scale(1.03);
         }
-
         .project-info {
-            padding: 22px 22px 26px;
+            padding: 22px 24px 26px;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-
         .project-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
+            font-size: 1.3rem;
             color: var(--accent);
+            margin-bottom: 6px;
         }
-
         .project-info p {
-            color: var(--text);
-            opacity: 0.85;
-            line-height: 1.5;
+            color: var(--text-secondary);
             flex: 1;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
-        .project-info .click-hint {
+        .project-info .hint {
             margin-top: 14px;
-            font-size: 0.85rem;
-            opacity: 0.5;
-            letter-spacing: 0.3px;
+            font-size: 0.8rem;
+            opacity: 0.4;
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: 0.3s;
         }
-
-        .project-info .click-hint::after {
+        .project-card:hover .hint {
+            opacity: 0.8;
+            color: var(--accent);
+        }
+        .project-info .hint::after {
             content: '↗';
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        /* ----- contact info (fixed) ----- */
+        /* ----- contact ----- */
         .contact-info {
-            max-width: 540px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+            max-width: 520px;
             background: var(--card);
             padding: 32px 36px;
             border-radius: var(--radius);
+            border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.03);
         }
-
         .contact-item {
             display: flex;
             align-items: center;
             gap: 16px;
-            font-size: 1.1rem;
-            padding: 6px 0;
-            border-bottom: 1px solid var(--secondary);
-            padding-bottom: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
         }
-
         .contact-item:last-child {
             border-bottom: none;
-            padding-bottom: 0;
         }
-
         .contact-item .label {
             font-weight: 600;
             min-width: 80px;
             color: var(--accent);
         }
-
         .contact-item .value {
-            opacity: 0.9;
+            color: var(--text-secondary);
             word-break: break-all;
         }
-
         .contact-item .value a {
             color: var(--accent);
             text-decoration: none;
             transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
-
         .contact-item .value a:hover {
             text-decoration: underline;
-            opacity: 0.8;
         }
 
-        .contact-item .value a::after {
-            content: '↗';
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* ----- footer ----- */
-        footer {
-            text-align: center;
-            padding: 30px 8%;
-            border-top: 1px solid var(--secondary);
-            opacity: 0.7;
-            font-size: 0.95rem;
-        }
-
-        /* ----- modal (project detail) ----- */
+        /* ----- modal (shared for projects & certificates) ----- */
         .modal-overlay {
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -348,9 +653,8 @@
             padding: 20px;
             opacity: 0;
             visibility: hidden;
-            transition: 0.25s ease;
+            transition: 0.3s;
         }
-
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
@@ -363,39 +667,42 @@
             max-height: 90vh;
             border-radius: var(--radius);
             overflow-y: auto;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
             transform: scale(0.95);
             transition: 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
         }
-
         .modal-overlay.active .modal-box {
             transform: scale(1);
         }
 
-        /* ----- gallery slider styles ----- */
+        /* gallery for projects */
         .modal-gallery {
             position: relative;
-            background: var(--secondary);
-            overflow: hidden;
+            background: var(--bg);
         }
-
         .modal-gallery .slider-container {
             position: relative;
-            width: 100%;
-            height: 420px;
+            height: 400px;
+            overflow: hidden;
         }
-
         .modal-gallery .slider-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: none;
-            transition: opacity 0.3s ease;
         }
-
         .modal-gallery .slider-container img.active {
             display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .gallery-nav {
@@ -409,30 +716,25 @@
             pointer-events: none;
             z-index: 10;
         }
-
         .gallery-nav button {
             pointer-events: auto;
             background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 14px 18px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.4rem;
             transition: 0.2s;
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .gallery-nav button:hover {
             background: rgba(0, 0, 0, 0.8);
             transform: scale(1.05);
         }
-
         .gallery-nav button:disabled {
             opacity: 0.3;
             cursor: not-allowed;
-            transform: none;
         }
 
         .image-counter {
@@ -443,11 +745,10 @@
             background: rgba(0, 0, 0, 0.6);
             padding: 4px 16px;
             border-radius: 20px;
-            font-size: 0.85rem;
-            color: white;
+            font-size: 0.8rem;
+            color: #fff;
             backdrop-filter: blur(4px);
             z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .thumbnails {
@@ -455,113 +756,93 @@
             gap: 8px;
             padding: 12px 16px;
             overflow-x: auto;
-            background: var(--secondary);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            scrollbar-width: thin;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
         }
-
-        .thumbnails::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .thumbnails::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-
         .thumbnails img {
             width: 60px;
             height: 60px;
             object-fit: cover;
+            border-radius: 8px;
             cursor: pointer;
-            border-radius: 6px;
             border: 2px solid transparent;
             transition: 0.2s;
             flex-shrink: 0;
         }
-
         .thumbnails img:hover {
             border-color: rgba(255, 255, 255, 0.3);
         }
-
         .thumbnails img.active {
             border-color: var(--accent);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
         }
 
         .modal-content {
             padding: 28px 32px 34px;
         }
-
         .modal-content h2 {
             font-size: 2rem;
-            margin-bottom: 12px;
             color: var(--accent);
+            margin-bottom: 8px;
         }
-
-        .modal-content h2::after {
-            display: none;
-        }
-
-        .modal-content .modal-description {
+        .modal-content .modal-sub {
+            color: var(--accent2);
+            font-weight: 600;
             font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .modal-content .modal-description p {
             margin-bottom: 12px;
         }
-
-        .modal-content .modal-description ul {
+        .modal-content .modal-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        .modal-content .modal-desc ul {
             list-style: none;
             padding-left: 0;
+            margin-top: 8px;
         }
-
-        .modal-content .modal-description ul li {
-            padding: 6px 0 6px 24px;
+        .modal-content .modal-desc ul li {
+            padding: 4px 0 4px 24px;
             position: relative;
         }
-
-        .modal-content .modal-description ul li::before {
+        .modal-content .modal-desc ul li::before {
             content: '▸';
             position: absolute;
             left: 0;
             color: var(--accent);
-            font-weight: bold;
+        }
+        .modal-content .modal-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            margin-top: 12px;
+            display: block;
         }
 
         .modal-close {
-            margin-top: 8px;
-            padding: 10px 28px;
-            background: var(--secondary);
-            border: none;
+            margin-top: 16px;
+            padding: 10px 32px;
+            background: var(--bg);
+            border: 1px solid var(--border);
             border-radius: 40px;
             color: var(--text);
             font-weight: 600;
-            font-size: 0.95rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
         }
-
         .modal-close:hover {
             background: var(--accent);
             color: #fff;
+            border-color: var(--accent);
         }
 
-        /* ----- scrollbar styling ----- */
-        .modal-box::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .modal-box::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .modal-box::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 10px;
+        /* ----- footer ----- */
+        footer {
+            text-align: center;
+            padding: 30px 6%;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            opacity: 0.6;
+            font-size: 0.9rem;
         }
 
         /* ----- responsive ----- */
@@ -569,114 +850,319 @@
             .nav-links {
                 display: none;
             }
-
             .hero h1 {
-                font-size: 2.6rem;
+                font-size: 2.8rem;
             }
-
-            .typing {
-                font-size: 1.3rem;
-                min-height: 3rem;
+            .hero .subtitle {
+                font-size: 1.1rem;
             }
-
             section {
-                padding: 100px 5% 50px;
+                padding: 80px 5% 50px;
             }
-
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .exp-tree .exp-item,
+            .education-tree .edu-item {
+                padding: 18px 20px;
+            }
+            .exp-tree,
+            .education-tree {
+                padding-left: 20px;
+            }
+            .exp-tree .exp-item::before,
+            .education-tree .edu-item::before {
+                left: -26px;
+                width: 12px;
+                height: 12px;
+            }
             .modal-gallery .slider-container {
                 height: 260px;
             }
-
-            .contact-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
-            }
-
-            .contact-item .label {
-                min-width: auto;
-            }
-
             .gallery-nav button {
                 padding: 10px 14px;
                 font-size: 1rem;
             }
-
             .thumbnails img {
-                width: 50px;
-                height: 50px;
+                width: 48px;
+                height: 48px;
+            }
+            .card {
+                padding: 24px 20px;
+            }
+            .contact-info {
+                padding: 24px 20px;
+            }
+            .exp-item .exp-header,
+            .edu-item .edu-header {
+                flex-direction: column;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            .skills-grid {
+                padding: 24px 20px;
+            }
+            .skill-tag {
+                font-size: 0.85rem;
+                padding: 6px 16px;
             }
         }
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
-            .card p {
+            .hero .typing {
                 font-size: 1rem;
             }
-            .project-info h3 {
-                font-size: 1.2rem;
-            }
-            .contact-info {
-                padding: 24px 20px;
-            }
-            .modal-content {
-                padding: 20px 18px 24px;
+            .project-card img {
+                height: 160px;
             }
             .modal-gallery .slider-container {
                 height: 200px;
             }
-            .thumbnails img {
-                width: 40px;
-                height: 40px;
+            .modal-content {
+                padding: 20px 18px 24px;
+            }
+            .exp-tree,
+            .education-tree {
+                padding-left: 16px;
+            }
+            .exp-tree .exp-item::before,
+            .education-tree .edu-item::before {
+                left: -22px;
+                width: 10px;
+                height: 10px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== NAV ===== -->
     <nav>
-        <div class="logo">PORTFOLIO</div>
+        <div class="logo">Eslam Wael</div>
         <div class="nav-links">
-            <a href="#home">Home</a>
             <a href="#about">About</a>
+            <a href="#education">Education</a>
+            <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
+            <a href="#certificates">Certificates</a>
+            <a href="#skills">Skills</a>
             <a href="#contact">Contact</a>
         </div>
         <button class="toggle-btn" onclick="toggleTheme()">🌙 Theme</button>
     </nav>
 
     <!-- ===== HERO ===== -->
-    <section id="home" class="hero">
-        <h1>Hello, I'm <span>ESLAM WAEL</span></h1>
+    <section class="hero" id="home">
+        <div class="hero-badge">🔧 Mechatronics Engineer</div>
+        <h1>Hello, I'm <span>Eslam Wael</span></h1>
+        <p class="subtitle">Bridging Mechanical Design, Robotics, and Automotive Systems from concept to reality.</p>
         <div class="typing" id="typing"></div>
         <button class="hero-btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
-            View Projects
+            View My Work ↓
         </button>
     </section>
 
     <!-- ===== ABOUT ===== -->
     <section id="about">
-        <h2>ABOUT ME</h2>
+        <h2 class="section-title">About Me</h2>
         <div class="card">
             <p>
-                I'm a Mechatronics Engineer with a strong passion for Mechanical Design, Robotics, and the Automotive industry.
-                My expertise lies in bridging the gap between mechanical systems, electronics, and software to create intelligent, functional solutions.
-                With hands-on experience in CAD modeling, FEA analysis, and Control systems, I strive to deliver innovative designs that are both efficient and manufacturable.
+                Mechatronics Engineer with expertise in Mechanical Design, Robotics, and the Automotive industry. Skilled in CAD modeling, FEA simulation, control systems, and ROS — delivering integrated engineering solutions from concept to reality.
             </p>
+        </div>
+    </section>
+
+    <!-- ===== EDUCATION (Tree Style) ===== -->
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="education-tree">
+            <div class="edu-item">
+                <div class="edu-header">
+                    <div>
+                        <div class="edu-title">Bachelor of Mechatronics Engineering</div>
+                        <div class="edu-school">Assiut University</div>
+                    </div>
+                    <span class="edu-date">09/2019 – 07/2024</span>
+                </div>
+                <div class="edu-desc">
+                    <ul>
+                        <li>Graduation Project: Bimanual Sign Language Communication System — Excellent Grade</li>
+                        <li>Focused on Robotics, Control Systems, and Mechanical Design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE (Tree Style) ===== -->
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="exp-tree">
+
+            <!-- 1. Coding Instructor -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Coding Instructor</div>
+                        <div class="exp-company">iSchool</div>
+                    </div>
+                    <span class="exp-date">06/2024 – Present</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>Teach programming fundamentals and computational thinking to students aged 12–18 through project-based learning.</li>
+                        <li>Deliver hands-on coding lessons covering embedded systems, algorithms, and software development.</li>
+                        <li>Mentor students in problem-solving, debugging, and logical thinking through practical projects.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. Military Service -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Military Service</div>
+                        <div class="exp-company">Egyptian Armed Forces</div>
+                    </div>
+                    <span class="exp-date">04/2025 – 06/2026</span>
+                </div>
+                <div class="exp-desc">
+                    <p>Completed mandatory military service.</p>
+                </div>
+            </div>
+
+            <!-- 3. Maintenance Engineer -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Maintenance Engineer</div>
+                        <div class="exp-company">CNC Machine Tools Company</div>
+                    </div>
+                    <span class="exp-date">10/2024 – 04/2025</span>
+                </div>
+                <div class="exp-desc">
+                    <p>Responsible for installing, maintaining and upgrading CNC Machines including:</p>
+                    <ul>
+                        <li>CNC Routers</li>
+                        <li>Fiber Laser Cutting Machines</li>
+                        <li>Fiber Marking Machines</li>
+                        <li>Plasma Cutting Machines</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. Autonomous Team Member (CV1) -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Autonomous Team Member</div>
+                        <div class="exp-company">Assiut Motorsport Team</div>
+                    </div>
+                    <span class="exp-date">02/2024 – 03/2025</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li><strong>Control System:</strong> Developed and integrated control algorithms including open-loop, closed-loop, and Kalman filters using Python and MATLAB.</li>
+                        <li><strong>Perception:</strong> Developed computer vision algorithms for depth camera obstacle detection, classification and avoidance.</li>
+                    </ul>
+                    <div class="exp-achievement">
+                        <strong>🏆 Achievement:</strong> Second-place winner in the EVER Egypt competition — Autonomous Track.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Mechanical Team Member (CV2 - Updated) -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Mechanical Team Member</div>
+                        <div class="exp-company">Assiut Motorsport Team</div>
+                    </div>
+                    <span class="exp-date">01/2021 – 09/2024</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li><strong>Vehicle Dynamics (until 09/2023):</strong> Responsible for design, manufacturing, modelling and simulating the brakes system using MATLAB & Simulink. Taught these skills to new members.</li>
+                        <li><strong>Mechanical Vice Chief Engineer (until 02/2024):</strong> Responsible for the mechanical work in the Electric Vehicles and IC-engined Formula Student Vehicles.</li>
+                    </ul>
+                    <div class="exp-achievement">
+                        <strong>🏆 Achievements:</strong>
+                        <ul>
+                            <li>5th place in dynamic event for electric vehicles out of 20 teams — EVER Egypt 2022</li>
+                            <li>Top 5 in design, cost and business — EVER Egypt 2024</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Technical Team Member -->
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Technical Team Member</div>
+                        <div class="exp-company">Assiut Robotics Team</div>
+                    </div>
+                    <span class="exp-date">02/2020 – 01/2023</span>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>Teaching Robot Design Basics (2023)</li>
+                        <li>Designing Unmanned Ground Vehicle Robotic Arm (2023)</li>
+                        <li>Reassembling CNC PCB Router (2022)</li>
+                        <li>Designing and Manufacturing FDM 3D Printer (2021)</li>
+                        <li>Line follower project (2021)</li>
+                        <li>Organizing committee head (2021)</li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- ===== PROJECTS ===== -->
     <section id="projects">
-        <h2>PROJECTS</h2>
+        <h2 class="section-title">Projects</h2>
         <div class="projects-grid" id="projectsGrid"></div>
     </section>
 
-    <!-- ===== CONTACT (fixed info) ===== -->
+    <!-- ===== CERTIFICATES (Clickable) ===== -->
+    <section id="certificates">
+        <h2 class="section-title">Certificates & Training</h2>
+        <div class="cert-grid" id="certGrid">
+            <!-- Cards will be rendered by JavaScript -->
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            <span class="skill-tag">SolidWorks</span>
+            <span class="skill-tag">FEA Simulation</span>
+            <span class="skill-tag">MATLAB & Simulink</span>
+            <span class="skill-tag">CAD Modeling</span>
+            <span class="skill-tag">Hydraulics</span>
+            <span class="skill-tag">Manufacturing</span>
+            <span class="skill-tag">CNC</span>
+            <span class="skill-tag">3D Printing</span>
+            <span class="skill-tag">Computer Vision</span>
+            <span class="skill-tag">ROS</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Control Systems</span>
+            <span class="skill-tag">MoveIt</span>
+            <span class="skill-tag">Gazebo</span>
+            <span class="skill-tag">RViz</span>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
     <section id="contact">
-        <h2>CONTACT</h2>
+        <h2 class="section-title">Contact</h2>
         <div class="contact-info">
             <div class="contact-item">
                 <span class="label">📧 Email</span>
@@ -689,7 +1175,7 @@
             <div class="contact-item">
                 <span class="label">🔗 LinkedIn</span>
                 <span class="value">
-                    <a href="https:/www.linkedin.com/in/eslam-wael-b868511a5" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/eslam-wael-b868511a5" target="_blank" rel="noopener noreferrer">
                         linkedin.com/in/eslam-wael-b868511a5
                     </a>
                 </span>
@@ -698,75 +1184,91 @@
     </section>
 
     <footer>
-        © 2026 · Eslam Portfolio
+        © 2026 · Eslam Wael · Mechatronics Engineer
     </footer>
 
-    <!-- ===== MODAL (project detail) ===== -->
-    <div class="modal-overlay" id="projectModal">
+    <!-- ===== MODAL (shared for projects & certificates) ===== -->
+    <div class="modal-overlay" id="modalOverlay">
         <div class="modal-box">
-            <div class="modal-gallery">
-                <div class="slider-container" id="sliderContainer">
-                    <!-- Images will be inserted here by JavaScript -->
-                </div>
+            <div class="modal-gallery" id="modalGallery" style="display:none;">
+                <div class="slider-container" id="sliderContainer"></div>
                 <div class="gallery-nav">
-                    <button id="prevImage" aria-label="Previous image">‹</button>
-                    <button id="nextImage" aria-label="Next image">›</button>
+                    <button id="prevImage" aria-label="Previous">‹</button>
+                    <button id="nextImage" aria-label="Next">›</button>
                 </div>
                 <div class="image-counter" id="imageCounter">1 / 1</div>
                 <div class="thumbnails" id="thumbnails"></div>
             </div>
             <div class="modal-content">
-                <h2 id="modalTitle">Project Title</h2>
-                <div class="modal-description" id="modalDescription">
-                    <p>Description goes here.</p>
-                </div>
+                <h2 id="modalTitle">Title</h2>
+                <div class="modal-sub" id="modalSub"></div>
+                <div class="modal-desc" id="modalDescription"></div>
+                <span class="modal-date" id="modalDate"></span>
                 <button class="modal-close" id="modalCloseBtn">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ========== DATA with multiple images ==========
-        let projects = [{
+        // ===== PROJECT DATA =====
+        const projects = [{
             id: 1,
-            title: 'RA-3D Robotic Arm Project',
-            description: 'Designing 4 DOF robotic arm with changeable end effector.',
+            title: 'Vehicle Brakes System',
+            description: 'Design, manufacturing, modelling and simulation of brake system for electric and IC engine Formula Student vehicles.',
             longDescription: `
-                    <p>A 4-DOF robotic arm designed for educational applications. The arm features a changeable end-effector system for versatile operation.</p>
+                    <p>A comprehensive project involving the full design cycle of brake systems for both electric vehicles and Formula student combustion engine vehicles.</p>
                     <p><strong>Key features:</strong></p>
                     <ul>
-                        <li>4 degrees of freedom</li>
-                        <li>Interchangeable end effectors (gripper, 3D printer nozzle, pen)</li>
-                        <li>ROS-based control</li>
-                        <li>Custom codes for kinematics calculations for educational purposes</li>
-                    </ul>
-                `,
-            images: [
-                'https://i.postimg.cc/RVh5ffVh/R1.jpg'
-            ]
-        }, {
-            id: 2,
-            title: 'Design and Manufacture of Vehicle Brakes System',
-            description: 'Design, manufacturing, modelling and simulation of vehicle brakes system for electric and IC engine vehicles.',
-            longDescription: `
-                    <p>A comprehensive project involving the design, manufacturing, modeling, and simulation of brake systems for both electric vehicles and Formula student combustion engine vehicles.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>FEA simulations for component strength analysis</li>
-                        <li>Hydraulic circuit design</li>
-                        <li>Manufacturing of custom brake discs</li>
+                        <li>Designing pedal box and brake disc using SOLIDWORKS</li>
+                        <li>Vehicle Dynamics response modelling using MATLAB & Simulink</li>
+                        <li>Static, dynamic and thermal FEA simulations using ANSYS and SOLIDWORKS Simulation</li>
+                        <li>Manufacturing of custom brake components</li>
                         <li>Performance testing and data collection</li>
                     </ul>
+                    <p><strong>🏆 Achievements:</strong> Top 5 in design, cost and business — EVER Egypt 2024</p>
                 `,
-            images: [
-                'https://i.postimg.cc/CLSC6HfY/EVER4.jpg',
-                'https://i.postimg.cc/pLPjq24D/EVER2.jpg',            ]
+            images: ['https://i.postimg.cc/CLSC6HfY/EVER4.jpg', 'https://i.postimg.cc/pLPjq24D/EVER2.jpg']
+        }, {
+            id: 2,
+            title: 'Bimanual Sign Language Communication System',
+            description: 'Design & control of 2 robotic hands performing sign language gestures with voice input and gesture recognition.',
+            longDescription: `
+                    <p>Graduation Project — Excellent Grade</p>
+                    <p>This project uses two robotic hands that replicate sign language gestures based on user voice input. The system also includes a camera that reads sign language gestures and outputs the corresponding audio translation.</p>
+                    <p><strong>Key features:</strong></p>
+                    <ul>
+                        <li>Dual robotic hands with synchronized control</li>
+                        <li>Voice-to-sign conversion using NLP</li>
+                        <li>Computer vision for sign language recognition (OpenCV)</li>
+                        <li>Real-time audio feedback</li>
+                        <li>ROS-based control architecture</li>
+                    </ul>
+                `,
+            images: ['https://i.postimg.cc/rFpvnQ8n/G1-Image.png', 'https://i.postimg.cc/FHJKywsb/B1.jpg',
+                'https://i.postimg.cc/zGmNrv8f/Bi-08-Prototype2.png'
+            ]
         }, {
             id: 3,
-            title: 'FDM 3D Printer',
-            description: 'Design and Manufacture 20×20×20 cm FDM 3D printer.',
+            title: 'RA-3D Robotic Arm Project',
+            description: 'Designing a 4 DOF robotic arm with changeable end effector.',
             longDescription: `
-                    <p>This project involved the complete design and manufacturing of a high-precision FDM 3D printer with a build volume of 20×20×20 cm. The printer was built using aluminum V-slot profiles for structural rigidity and uses the Marlin firmware for motion control.</p>
+                    <p>A 4-DOF robotic arm designed for educational and light industrial applications. The arm features a changeable end-effector system for versatile operation.</p>
+                    <p><strong>Key features:</strong></p>
+                    <ul>
+                        <li>4 degrees of freedom with precise control</li>
+                        <li>Interchangeable end effectors (gripper, 3D printer nozzle, pen)</li>
+                        <li>ROS-based control using MoveIt, RViz, and Gazebo</li>
+                        <li>Custom kinematics calculations for educational purposes</li>
+                        <li>3D printed mechanical components</li>
+                    </ul>
+                `,
+            images: ['https://i.postimg.cc/RVh5ffVh/R1.jpg']
+        }, {
+            id: 4,
+            title: 'FDM 3D Printer',
+            description: 'Design and Manufacture 20×20×20 cm FDM 3D printer with aluminum V-slot frame.',
+            longDescription: `
+                    <p>This project involved the complete design and manufacturing of a high-precision FDM 3D printer with a build volume of 20×20×20 cm. The printer was built using aluminum V-slot profiles for structural rigidity.</p>
                     <p><strong>Key features:</strong></p>
                     <ul>
                         <li>Aluminum V-slot frame for stability</li>
@@ -776,49 +1278,60 @@
                         <li>Silent stepper motor drivers</li>
                     </ul>
                 `,
-            images: [
-                'https://i.postimg.cc/26Qn8VBh/preview-3.jpg',
-                'https://i.postimg.cc/YSw928fq/1739343246627.jpg'
-            ]
-        }, {
-            id: 4,
-            title: 'Bimanual Sign Language Communication System',
-            description: 'Robotic hand performing sign language gestures with voice input and gesture recognition.',
-            longDescription: `
-                    <p>This project uses robotic hand that replicates sign language gestures based on user voice input. The system also includes a camera that reads sign language gestures and outputs the corresponding audio translation.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>Computer vision for sign language recognition</li>
-                        <li>Real-time audio feedback</li>
-                        <li>Multi-threaded processing for simultaneous input/output</li>
-                    </ul>
-                `,
-            images: [
-                'https://i.postimg.cc/63PxqpJr/1757762209767.jpg',
-                'https://i.postimg.cc/FHJKywsb/B1.jpg',
-                'https://i.postimg.cc/zGmNrv8f/Bi-08-Prototype2.png',
-            ]
+            images: ['https://i.postimg.cc/26Qn8VBh/preview-3.jpg', 'https://i.postimg.cc/YSw928fq/1739343246627.jpg']
         }, {
             id: 5,
-            title: 'Syringe Pump',
-            description: 'Proof of concept syringe pump using stepper motor and lead screw mechanism.',
+            title: 'Syringe Pump Prototype',
+            description: 'Proof of concept syringe pump using stepper motor and lead screw mechanism for medical applications.',
             longDescription: `
                     <p>A precision syringe pump prototype developed as a proof of concept for medical and laboratory applications. The system uses a stepper motor and lead screw mechanism to achieve accurate and controlled fluid delivery.</p>
                     <p><strong>Key features:</strong></p>
                     <ul>
+                        <li>Stepper motor with micro-stepping for smooth operation</li>
+                        <li>Lead screw mechanism for precise linear actuation</li>
                         <li>Adjustable flow rate control</li>
                         <li>Compact and modular design</li>
+                        <li>Arduino-based control system</li>
                         <li>Potential applications: drug delivery, microfluidics, lab automation</li>
                     </ul>
                 `,
-            images: [
-                'https://i.postimg.cc/s2gsn83k/Untitled4.jpg'
-            ]
+            images: ['https://i.postimg.cc/s2gsn83k/Untitled4.jpg']
         }];
 
-        let nextId = 6;
+        // ===== CERTIFICATE DATA =====
+        const certificates = [{
+            id: 101,
+            title: 'SOLIDWORKS Professional Mechanical Designer',
+            issuer: 'CSWP – Dassault Systèmes',
+            date: '',
+            description: 'Certified SOLIDWORKS Professional (CSWP) – Mechanical Design. Validates advanced skills in SOLIDWORKS including part modeling, assembly design, and drawing creation.'
+        }, {
+            id: 102,
+            title: 'Mansour Service Department Trainee',
+            issuer: 'Mansour Automotive Group (MAG)',
+            date: '',
+            description: 'Immersive training in automotive maintenance at one of Egypt\'s leading automotive groups. Covered fault detection, diagnosis, repair strategies, routine maintenance, and automotive painting techniques.'
+        }, {
+            id: 103,
+            title: 'Fabrication Technology Internship',
+            issuer: 'EME Innovation Hub – ASIUT',
+            date: '08/2021 – 09/2021',
+            description: 'Comprehensive fabrication technology track covering: CAD using SolidWorks, CAM using CorelDraw, ArtCam, Powemill, G-Code and Rendering, Additive manufacturing, and Cutting machines.'
+        }, {
+            id: 104,
+            title: 'Comprehensive Maintenance Internship',
+            issuer: 'Mass for Medical Necessities',
+            date: '',
+            description: 'Extensive hands-on experience in injection molding machines, including Mold Change and Syringe Production Line Maintenance with focus on Assembly, Printing, Packaging, and Sterilization processes.'
+        }, {
+            id: 105,
+            title: 'Fabrication Internship',
+            issuer: 'Arab Engineers Factory for Designs and Medical Instrumentation',
+            date: '',
+            description: 'Practical training in fabrication processes and medical instrumentation design and manufacturing.'
+        }];
 
-        // ========== RENDER ==========
+        // ===== RENDER PROJECTS =====
         const grid = document.getElementById('projectsGrid');
 
         function renderProjects() {
@@ -826,208 +1339,199 @@
             projects.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'project-card';
-                card.dataset.id = p.id;
-
-                // Use first image from array or fallback
-                const firstImage = p.images && p.images.length > 0 ? p.images[0] : 'https://picsum.photos/600/400';
-
+                const img = p.images && p.images.length ? p.images[0] : 'https://picsum.photos/600/400';
                 card.innerHTML = `
-                        <img src="${firstImage}" alt="${p.title}" loading="lazy" />
+                        <img src="${img}" alt="${p.title}" loading="lazy" />
                         <div class="project-info">
                             <h3>${p.title}</h3>
                             <p>${p.description}</p>
-                            <div class="click-hint">click to open</div>
+                            <div class="hint">view project</div>
                         </div>
                     `;
-
-                card.addEventListener('click', () => openModal(p.id));
+                card.addEventListener('click', () => openProjectModal(p.id));
                 grid.appendChild(card);
             });
         }
 
-        // ========== MODAL with Slider ==========
-        const modal = document.getElementById('projectModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const closeBtn = document.getElementById('modalCloseBtn');
+        // ===== RENDER CERTIFICATES =====
+        const certGrid = document.getElementById('certGrid');
+
+        function renderCertificates() {
+            certGrid.innerHTML = '';
+            certificates.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'cert-card';
+                card.innerHTML = `
+                        <h3>${c.title}</h3>
+                        <div class="cert-issuer">${c.issuer}</div>
+                        ${c.date ? `<span class="cert-date">${c.date}</span>` : ''}
+                        <div class="cert-preview">${c.description.substring(0, 80)}${c.description.length > 80 ? '...' : ''}</div>
+                        <div class="click-hint">view details</div>
+                    `;
+                card.addEventListener('click', () => openCertModal(c.id));
+                certGrid.appendChild(card);
+            });
+        }
+
+        // ===== MODAL SYSTEM =====
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalGallery = document.getElementById('modalGallery');
         const sliderContainer = document.getElementById('sliderContainer');
         const thumbnailsContainer = document.getElementById('thumbnails');
         const imageCounter = document.getElementById('imageCounter');
         const prevBtn = document.getElementById('prevImage');
         const nextBtn = document.getElementById('nextImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSub = document.getElementById('modalSub');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalDate = document.getElementById('modalDate');
+        const closeBtn = document.getElementById('modalCloseBtn');
 
-        let currentProjectImages = [];
-        let currentImageIndex = 0;
+        let currentImages = [];
+        let currentIndex = 0;
+        let isProjectModal = true;
 
-        function openModal(id) {
+        function openProjectModal(id) {
             const proj = projects.find(p => p.id === id);
             if (!proj) return;
-
-            currentProjectImages = proj.images || ['https://picsum.photos/600/400'];
-            currentImageIndex = 0;
-
+            isProjectModal = true;
+            currentImages = proj.images || ['https://picsum.photos/600/400'];
+            currentIndex = 0;
             modalTitle.textContent = proj.title;
+            modalSub.textContent = '';
+            modalDate.textContent = '';
             modalDescription.innerHTML = proj.longDescription || `<p>${proj.description}</p>`;
-
+            modalGallery.style.display = 'block';
             renderSlider();
             updateSlider();
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-            modal.classList.add('active');
+        function openCertModal(id) {
+            const cert = certificates.find(c => c.id === id);
+            if (!cert) return;
+            isProjectModal = false;
+            modalTitle.textContent = cert.title;
+            modalSub.textContent = cert.issuer;
+            modalDate.textContent = cert.date || '';
+            modalDescription.innerHTML = `<p>${cert.description}</p>`;
+            modalGallery.style.display = 'none';
+            modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function renderSlider() {
-            // Clear previous content
             sliderContainer.innerHTML = '';
             thumbnailsContainer.innerHTML = '';
-
-            // Create image elements
-            currentProjectImages.forEach((imgUrl, index) => {
+            currentImages.forEach((url, i) => {
                 const img = document.createElement('img');
-                img.src = imgUrl;
-                img.alt = `Image ${index + 1}`;
-                img.dataset.index = index;
-                if (index === 0) img.classList.add('active');
+                img.src = url;
+                img.alt = `Image ${i+1}`;
+                img.dataset.index = i;
+                if (i === 0) img.classList.add('active');
                 sliderContainer.appendChild(img);
 
-                // Create thumbnail
                 const thumb = document.createElement('img');
-                thumb.src = imgUrl;
-                thumb.alt = `Thumbnail ${index + 1}`;
-                thumb.dataset.index = index;
-                if (index === 0) thumb.classList.add('active');
-                thumb.addEventListener('click', () => {
-                    currentImageIndex = index;
-                    updateSlider();
-                });
+                thumb.src = url;
+                thumb.alt = `Thumb ${i+1}`;
+                thumb.dataset.index = i;
+                if (i === 0) thumb.classList.add('active');
+                thumb.addEventListener('click', () => { currentIndex = i;
+                    updateSlider(); });
                 thumbnailsContainer.appendChild(thumb);
             });
-
-            // Update counter
             updateCounter();
             updateButtons();
         }
 
         function updateSlider() {
-            // Update main images
-            const images = sliderContainer.querySelectorAll('img');
-            images.forEach((img, index) => {
-                img.classList.toggle('active', index === currentImageIndex);
-            });
-
-            // Update thumbnails
+            const imgs = sliderContainer.querySelectorAll('img');
+            imgs.forEach((img, i) => img.classList.toggle('active', i === currentIndex));
             const thumbs = thumbnailsContainer.querySelectorAll('img');
-            thumbs.forEach((thumb, index) => {
-                thumb.classList.toggle('active', index === currentImageIndex);
-            });
-
-            // Scroll thumbnail into view
+            thumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === currentIndex));
             const activeThumb = thumbnailsContainer.querySelector('img.active');
-            if (activeThumb) {
-                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
-
+            if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             updateCounter();
             updateButtons();
         }
 
         function updateCounter() {
-            imageCounter.textContent = `${currentImageIndex + 1} / ${currentProjectImages.length}`;
+            imageCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
         }
 
         function updateButtons() {
-            prevBtn.disabled = currentProjectImages.length <= 1;
-            nextBtn.disabled = currentProjectImages.length <= 1;
+            prevBtn.disabled = currentImages.length <= 1;
+            nextBtn.disabled = currentImages.length <= 1;
         }
 
-        function prevImage() {
-            if (currentProjectImages.length <= 1) return;
-            currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+        prevBtn.addEventListener('click', () => {
+            if (currentImages.length <= 1 || !isProjectModal) return;
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
             updateSlider();
-        }
+        });
 
-        function nextImage() {
-            if (currentProjectImages.length <= 1) return;
-            currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+        nextBtn.addEventListener('click', () => {
+            if (currentImages.length <= 1 || !isProjectModal) return;
+            currentIndex = (currentIndex + 1) % currentImages.length;
             updateSlider();
-        }
+        });
 
-        // Event listeners for slider navigation
-        prevBtn.addEventListener('click', prevImage);
-        nextBtn.addEventListener('click', nextImage);
-
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (!modal.classList.contains('active')) return;
-            if (e.key === 'ArrowLeft') prevImage();
-            if (e.key === 'ArrowRight') nextImage();
+            if (!modalOverlay.classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
             if (e.key === 'Escape') closeModal();
         });
 
-        // Touch/swipe support for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        sliderContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
+        let touchStart = 0;
+        sliderContainer.addEventListener('touchstart', (e) => { touchStart = e.changedTouches[0].screenX; });
         sliderContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextImage();
-                else prevImage();
-            }
+            if (!isProjectModal) return;
+            const diff = touchStart - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) diff > 0 ? nextBtn.click() : prevBtn.click();
         });
 
         function closeModal() {
-            modal.classList.remove('active');
+            modalOverlay.classList.remove('active');
             document.body.style.overflow = '';
         }
 
         closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
 
-        // ========== THEME ==========
+        // ===== THEME =====
         function toggleTheme() {
             document.body.classList.toggle('light');
             const btn = document.querySelector('.toggle-btn');
-            btn.textContent = document.body.classList.contains('light') ? '☀️ Theme' : '🌙 Theme';
+            btn.textContent = document.body.classList.contains('light') ? '☀️ Light' : '🌙 Dark';
         }
 
-        // ========== TYPING ==========
-        const words = ['Mechatronics Engineer'];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typingEl = document.getElementById('typing');
+        // ===== TYPING =====
+        const words = ['Mechatronics Engineer', 'Mechanical Designer', 'ROS Developer', 'Automotive Enthusiast'];
+        let wIdx = 0,
+            cIdx = 0,
+            deleting = false;
+        const el = document.getElementById('typing');
 
         function typeEffect() {
-            const currentWord = words[wordIndex];
-            if (!isDeleting) {
-                typingEl.textContent = currentWord.substring(0, charIndex++);
-                if (charIndex > currentWord.length) {
-                    isDeleting = true;
-                    setTimeout(typeEffect, 1600);
-                    return;
-                }
+            const word = words[wIdx];
+            if (!deleting) {
+                el.textContent = word.substring(0, cIdx++);
+                if (cIdx > word.length) { deleting = true;
+                    setTimeout(typeEffect, 1800); return; }
             } else {
-                typingEl.textContent = currentWord.substring(0, charIndex--);
-                if (charIndex < 0) {
-                    isDeleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
-                    setTimeout(typeEffect, 400);
-                    return;
-                }
+                el.textContent = word.substring(0, cIdx--);
+                if (cIdx < 0) { deleting = false;
+                    wIdx = (wIdx + 1) % words.length;
+                    setTimeout(typeEffect, 400); return; }
             }
-            setTimeout(typeEffect, isDeleting ? 40 : 100);
+            setTimeout(typeEffect, deleting ? 40 : 100);
         }
 
-        // ========== INIT ==========
+        // ===== INIT =====
         renderProjects();
+        renderCertificates();
         typeEffect();
     </script>
 </body>
