@@ -360,6 +360,7 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             transition: 0.3s;
+            cursor: pointer;
         }
         .exp-tree .exp-item::before {
             content: '';
@@ -377,6 +378,12 @@
             transform: translateX(8px);
             border-color: var(--accent2);
             background: var(--card-hover);
+        }
+        .exp-item.no-images {
+            cursor: default;
+        }
+        .exp-item.no-images:hover {
+            transform: none;
         }
 
         .exp-item .exp-header {
@@ -435,6 +442,44 @@
         }
         .exp-item .exp-achievement strong {
             color: var(--accent2);
+        }
+
+        /* gallery hint on experience cards */
+        .exp-item .exp-gallery-hint {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            opacity: 0.4;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+        .exp-item:hover .exp-gallery-hint {
+            opacity: 0.8;
+            color: var(--accent2);
+        }
+        .exp-item .exp-gallery-hint::after {
+            content: '↗';
+            font-size: 1rem;
+        }
+
+        /* mini thumbnails shown inside the experience card */
+        .exp-thumbnails {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .exp-thumbnails img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+        .exp-item:hover .exp-thumbnails img {
+            border-color: var(--accent2);
         }
 
         /* ----- skills section ----- */
@@ -640,7 +685,7 @@
             text-decoration: underline;
         }
 
-        /* ----- modal (shared for projects & certificates) ----- */
+        /* ----- modal (shared for projects, certificates & experience) ----- */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -676,7 +721,7 @@
             transform: scale(1);
         }
 
-        /* gallery for projects */
+        /* gallery */
         .modal-gallery {
             position: relative;
             background: var(--bg);
@@ -998,147 +1043,10 @@
         </div>
     </section>
 
-    <!-- ===== EXPERIENCE (Tree Style) ===== -->
+    <!-- ===== EXPERIENCE (rendered by JS) ===== -->
     <section id="experience">
         <h2 class="section-title">Experience</h2>
-        <div class="exp-tree">
-
-            <!-- 1. Fabrication Team Lead & STEM Coach -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Fabrication Team Lead & STEM Coach</div>
-                        <div class="exp-company">IVY STEM</div>
-                    </div>
-                    <span class="exp-date">08/2026 – Present</span>
-                </div>
-                <div class="exp-desc">
-                    <ul>
-                        <li>Leading fabrication processes and supporting students in STEM competitions and project presentations.</li>
-                        <li>Providing technical guidance in robotics, mechanical design, and fabrication.</li>
-                        <li>Coaching students in multidisciplinary STEM projects from ideation to prototyping and implementation.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 2. STEAM Instructor (UPDATED) -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">STEAM Instructor</div>
-                        <div class="exp-company">iSchool</div>
-                    </div>
-                    <span class="exp-date">06/2026 – 08/2026</span>
-                </div>
-                <div class="exp-desc">
-                    <ul>
-                        <li>Teach programming fundamentals and computational thinking to students aged 12–18 through project-based learning.</li>
-                        <li>Introduce students to diverse STEM and technology fields through project-based learning.</li>
-                        <li>Deliver hands-on lessons covering embedded systems, AI, digital arts, and software development.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 3. Military Service -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Military Service</div>
-                        <div class="exp-company">Egyptian Armed Forces</div>
-                    </div>
-                    <span class="exp-date">04/2025 – 06/2026</span>
-                </div>
-                <div class="exp-desc">
-                    <p>Completed mandatory military service.</p>
-                </div>
-            </div>
-
-            <!-- 4. Maintenance Engineer -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Maintenance Engineer</div>
-                        <div class="exp-company">CNC Machine Tools Company</div>
-                    </div>
-                    <span class="exp-date">10/2024 – 04/2025</span>
-                </div>
-                <div class="exp-desc">
-                    <p>Responsible for installing, maintaining and upgrading CNC Machines including:</p>
-                    <ul>
-                        <li>CNC Routers</li>
-                        <li>Fiber Laser Cutting Machines</li>
-                        <li>Fiber Marking Machines</li>
-                        <li>Plasma Cutting Machines</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 5. Autonomous Team Member -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Autonomous Team Member</div>
-                        <div class="exp-company">Assiut Motorsport Team</div>
-                    </div>
-                    <span class="exp-date">02/2024 – 03/2025</span>
-                </div>
-                <div class="exp-desc">
-                    <ul>
-                        <li><strong>Control System:</strong> Developed and integrated control algorithms including open-loop, closed-loop, and Kalman filters using Python and MATLAB.</li>
-                        <li><strong>Perception:</strong> Developed computer vision algorithms for depth camera obstacle detection, classification and avoidance.</li>
-                    </ul>
-                    <div class="exp-achievement">
-                        <strong>🏆 Achievement:</strong> Second-place winner in the EVER Egypt competition — Autonomous Track.
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. Mechanical Team Member -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Mechanical Team Member</div>
-                        <div class="exp-company">Assiut Motorsport Team</div>
-                    </div>
-                    <span class="exp-date">01/2021 – 09/2024</span>
-                </div>
-                <div class="exp-desc">
-                    <ul>
-                        <li><strong>Vehicle Dynamics (until 09/2023):</strong> Responsible for design, manufacturing, modelling and simulating the brakes system using MATLAB & Simulink. Taught these skills to new members.</li>
-                        <li><strong>Mechanical Vice Chief Engineer (until 02/2024):</strong> Responsible for the mechanical work in the Electric Vehicles and IC-engined Formula Student Vehicles.</li>
-                    </ul>
-                    <div class="exp-achievement">
-                        <strong>🏆 Achievements:</strong>
-                        <ul>
-                            <li>5th place in dynamic event for electric vehicles out of 20 teams — EVER Egypt 2022</li>
-                            <li>Top 5 in design, cost and business — EVER Egypt 2024</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 7. Technical Team Member -->
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Technical Team Member</div>
-                        <div class="exp-company">Assiut Robotics Team</div>
-                    </div>
-                    <span class="exp-date">02/2020 – 01/2023</span>
-                </div>
-                <div class="exp-desc">
-                    <ul>
-                        <li>Teaching Robot Design Basics (2023)</li>
-                        <li>Designing Unmanned Ground Vehicle Robotic Arm (2023)</li>
-                        <li>Reassembling CNC PCB Router (2022)</li>
-                        <li>Designing and Manufacturing FDM 3D Printer (2021)</li>
-                        <li>Line follower project (2021)</li>
-                        <li>Organizing committee head (2021)</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
+        <div class="exp-tree" id="experienceTree"></div>
     </section>
 
     <!-- ===== PROJECTS ===== -->
@@ -1203,7 +1111,7 @@
         © 2026 · Eslam Wael · Mechatronics Engineer
     </footer>
 
-    <!-- ===== MODAL ===== -->
+    <!-- ===== SHARED MODAL (projects, certificates, experience) ===== -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-box">
             <div class="modal-gallery" id="modalGallery" style="display:none;">
@@ -1226,128 +1134,316 @@
     </div>
 
     <script>
-        // ===== PROJECT DATA =====
+        // ============================================================
+        // EXPERIENCE DATA (with up to 3 images per experience)
+        // ============================================================
+        const experiences = [
+            {
+                id: 'ivy',
+                title: 'STEM Coach',
+                company: 'IVY STEM',
+                date: '08/2026 – Present',
+                bullets: [
+                    'Providing technical guidance in Robotics, Mechanical Design, and Fabrication.',
+                    'Leading fabrication processes and supporting students in STEM competitions and project presentations.',
+                    'Coaching students in multidisciplinary STEM projects from ideation to prototyping and implementation.'
+                ],
+                images: [
+                    'https://i.postimg.cc/QdMdm2fM/840824429-1403614388093890-1427154778258284855-n.jpg',
+                    'https://i.postimg.cc/HnQ9Scs7/D03.jpg',
+                    'https://i.postimg.cc/1tgQNPR2/D04.jpg'
+                ]
+            },
+            {
+                id: 'ischool',
+                title: 'STEAM Instructor',
+                company: 'iSchool',
+                date: '06/2026 – 08/2026',
+                bullets: [
+                    'Deliver hands-on sessions covering Robotics, Embedded systems, AI, Digital arts, and software development.',
+                    'Introduce students to diverse STEM and technology fields through project-based learning.',
+                    'Teach programming fundamentals and computational thinking to students aged 12–18 through project-based learning.'
+                ],
+                images: []
+            },
+            {
+                id: 'military',
+                title: 'Military Service',
+                company: 'Egyptian Armed Forces',
+                date: '04/2025 – 06/2026',
+                bullets: [
+                    'Completed mandatory military service.'
+                ],
+                images: []
+            },
+            {
+                id: 'cnc',
+                title: 'Maintenance Engineer',
+                company: 'CNC Machine Tools Company',
+                date: '10/2024 – 04/2025',
+                bullets: [
+                    'Responsible for installing, maintaining and upgrading CNC Machines including:',
+                    'CNC Routers',
+                    'Fiber Laser Cutting Machines',
+                    'Fiber Marking Machines',
+                    'Plasma Cutting Machines'
+                ],
+                images: [
+                    'https://i.postimg.cc/G3xC8MbC/1749397350164.jpg',
+                    'https://i.postimg.cc/1RVKvzWZ/fiber-marking.jpg',
+                    'https://i.postimg.cc/TPv0bvjX/1749397012912.jpg'
+                ]
+            },
+            {
+                id: 'autonomous',
+                title: 'Autonomous Team Member',
+                company: 'Assiut Motorsport Team',
+                date: '02/2024 – 03/2025',
+                bullets: [
+                    '<strong>Control System:</strong> Developed and integrated control algorithms including open-loop, closed-loop, and Kalman filters using Python and MATLAB.',
+                    '<strong>Perception:</strong> Developed computer vision algorithms for depth camera obstacle detection, classification and avoidance.'
+                ],
+                achievement: '<strong>🏆 Achievement:</strong> Second-place winner in the EVER Egypt competition — Autonomous Track.',
+                images: [
+                    'https://i.postimg.cc/xCCGWTg8/AMA.jpg',
+                    'https://i.postimg.cc/MHYWVq2W/KF.jpg',
+                    'https://i.postimg.cc/c1kk1P8M/RGBD.jpg'
+                ]
+            },
+            {
+                id: 'mechanical',
+                title: 'Mechanical Team Member',
+                company: 'Assiut Motorsport Team',
+                date: '01/2021 – 09/2024',
+                bullets: [
+                    '<strong>Vehicle Dynamics (until 09/2023):</strong> Responsible for design, manufacturing, modelling and simulating the brakes system using MATLAB & Simulink. Taught these skills to new members.',
+                    '<strong>Mechanical Vice Chief Engineer (until 02/2024):</strong> Responsible for the mechanical work in the Electric Vehicles and IC-engined Formula Student Vehicles.'
+                ],
+                achievement: '<strong>🏆 Achievements:</strong> 5th place in dynamic event for electric vehicles out of 20 teams — EVER Egypt 2022 · Top 5 in design, cost and business — EVER Egypt 2024',
+                images: [
+                    'https://i.postimg.cc/wT8zTtND/EVER05.jpg',
+                    'https://i.postimg.cc/DzsdhM3M/F08.jpg',
+                    'https://i.postimg.cc/X7p6HdRX/IMG-20220409-WA0129.jpg'
+                ]
+            },
+            {
+                id: 'robotics',
+                title: 'Technical Team Member',
+                company: 'Assiut Robotics Team',
+                date: '02/2020 – 01/2023',
+                bullets: [
+                    'Teaching Robot Design Basics (2023)',
+                    'Designing Unmanned Ground Vehicle Robotic Arm (2023)',
+                    'Reassembling CNC PCB Router (2022)',
+                    'Designing and Manufacturing FDM 3D Printer (2021)',
+                    'Line follower project (2021)',
+                    'Organizing committee head (2021)'
+                ],
+                images: [
+                    'https://i.postimg.cc/d1LgHKfm/1690404085415.jpg',
+                    'https://i.postimg.cc/8P6f8JW6/1690404085739.jpg'
+                ]
+            }
+        ];
+
+        // ============================================================
+        // PROJECT DATA
+        // ============================================================
         const projects = [{
             id: 1,
             title: 'Vehicle Brakes System',
             description: 'Design, manufacturing, modelling and simulation of brake system for electric and IC engine Formula Student vehicles.',
             longDescription: `
-                    <p>A comprehensive project involving the full design cycle of brake systems for both electric vehicles and Formula student combustion engine vehicles.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>Designing pedal box and brake disc using SOLIDWORKS</li>
-                        <li>Vehicle Dynamics response modelling using MATLAB & Simulink</li>
-                        <li>Static, dynamic and thermal FEA simulations using ANSYS and SOLIDWORKS Simulation</li>
-                        <li>Manufacturing of custom brake components</li>
-                        <li>Performance testing and data collection</li>
-                    </ul>
-                    <p><strong>🏆 Achievements:</strong> Top 5 in design, cost and business — EVER Egypt 2024</p>
-                `,
-            images: ['https://i.postimg.cc/CLSC6HfY/EVER4.jpg', 'https://i.postimg.cc/pLPjq24D/EVER2.jpg']
+                <p>A comprehensive project involving the full design cycle of brake systems for both electric vehicles and Formula student combustion engine vehicles.</p>
+                <p><strong>Key features:</strong></p>
+                <ul>
+                    <li>Designing pedal box and brake disc using SOLIDWORKS</li>
+                    <li>Vehicle Dynamics response modelling using MATLAB & Simulink</li>
+                    <li>Static, dynamic and thermal FEA simulations using ANSYS and SOLIDWORKS Simulation</li>
+                    <li>Manufacturing of custom brake components</li>
+                    <li>Performance testing and data collection</li>
+                </ul>
+                <p><strong>🏆 Achievements:</strong> Top 5 in design, cost and business — EVER Egypt 2024</p>
+            `,
+            images: ['https://i.postimg.cc/CLSC6HfY/EVER4.jpg', 'https://i.postimg.cc/Zqgx3v6H/Wheel-Assembly.png']
         }, {
             id: 2,
             title: 'Bimanual Sign Language Communication System',
             description: 'Design & control of 2 robotic hands performing sign language gestures with voice input and gesture recognition.',
             longDescription: `
-                    <p>Graduation Project — Excellent Grade</p>
-                    <p>This project uses two robotic hands that replicate sign language gestures based on user voice input. The system also includes a camera that reads sign language gestures and outputs the corresponding audio translation.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>Dual robotic hands with synchronized control</li>
-                        <li>Voice-to-sign conversion using NLP</li>
-                        <li>Computer vision for sign language recognition (OpenCV)</li>
-                        <li>Real-time audio feedback</li>
-                        <li>ROS-based control architecture</li>
-                    </ul>
-                `,
-            images: ['https://i.postimg.cc/rFpvnQ8n/G1-Image.png', 'https://i.postimg.cc/FHJKywsb/B1.jpg',
-                'https://i.postimg.cc/zGmNrv8f/Bi-08-Prototype2.png'
-            ]
+                <p>Graduation Project — Excellent Grade</p>
+                <p>This project uses two robotic hands that replicate sign language gestures based on user voice input. The system also includes a camera that reads sign language gestures and outputs the corresponding audio translation.</p>
+                <p><strong>Key features:</strong></p>
+                <ul>
+                    <li>Dual robotic hands with synchronized control</li>
+                    <li>Voice-to-sign conversion using NLP</li>
+                    <li>Computer vision for sign language recognition (OpenCV)</li>
+                    <li>Real-time audio feedback</li>
+                    <li>ROS-based control architecture</li>
+                </ul>
+            `,
+            images: ['https://i.postimg.cc/rFpvnQ8n/G1-Image.png', 'https://i.postimg.cc/FHJKywsb/B1.jpg', 'https://i.postimg.cc/zGmNrv8f/Bi-08-Prototype2.png']
         }, {
             id: 3,
             title: 'RA-3D Robotic Arm Project',
             description: 'Designing a 4 DOF robotic arm with changeable end effector.',
             longDescription: `
-                    <p>A 4-DOF robotic arm designed for educational and light industrial applications. The arm features a changeable end-effector system for versatile operation.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>4 degrees of freedom with precise control</li>
-                        <li>Interchangeable end effectors (gripper, 3D printer nozzle, pen)</li>
-                        <li>ROS-based control using MoveIt, RViz, and Gazebo</li>
-                        <li>Custom kinematics calculations for educational purposes</li>
-                        <li>3D printed mechanical components</li>
-                    </ul>
-                `,
+                <p>A 4-DOF robotic arm designed for educational and light industrial applications. The arm features a changeable end-effector system for versatile operation.</p>
+                <p><strong>Key features:</strong></p>
+                <ul>
+                    <li>4 degrees of freedom with precise control</li>
+                    <li>Interchangeable end effectors (gripper, 3D printer nozzle, pen)</li>
+                    <li>ROS-based control using MoveIt, RViz, and Gazebo</li>
+                    <li>Custom kinematics calculations for educational purposes</li>
+                    <li>3D printed mechanical components</li>
+                </ul>
+            `,
             images: ['https://i.postimg.cc/RVh5ffVh/R1.jpg']
         }, {
             id: 4,
+            title: 'Unmanned Ground Vehicle (UGV)',
+            description: 'Designing and manufacturing a UGV with Assiut Robotics UGV Team.',
+            longDescription: `
+                <p>Designing and manufacturing an Unmanned Ground Vehicle (UGV) with Assiut Robotics UGV Team.</p>
+                <p><strong>Key features:</strong></p>
+                <ul>
+                    <li>Independent suspension system for rough terrain</li>
+                    <li>Metal chassis for structural durability</li>
+                    <li>Robotic arm payload capacity of 5kg</li>
+                </ul>
+            `,
+            images: ['https://i.postimg.cc/GpqYbw5w/received-442372761228874.jpg']
+        }, {
+            id: 5,
             title: 'FDM 3D Printer',
             description: 'Design and Manufacture 20×20×20 cm FDM 3D printer with aluminum V-slot frame.',
             longDescription: `
-                    <p>This project involved the complete design and manufacturing of a high-precision FDM 3D printer with a build volume of 20×20×20 cm. The printer was built using aluminum V-slot profiles for structural rigidity.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>Aluminum V-slot frame for stability</li>
-                        <li>Marlin 2.0 firmware with custom configuration</li>
-                        <li>Heated bed with automatic leveling</li>
-                        <li>Filament runout sensor and resume print capability</li>
-                        <li>Silent stepper motor drivers</li>
-                    </ul>
-                `,
+                <p>This project involved the complete design and manufacturing of a high-precision FDM 3D printer with a build volume of 20×20×20 cm. The printer was built using aluminum V-slot profiles for structural rigidity.</p>
+                <p><strong>Key features:</strong></p>
+                <ul>
+                    <li>Aluminum V-slot frame for stability</li>
+                    <li>Marlin 2.0 firmware with custom configuration</li>
+                    <li>Heated bed with automatic leveling</li>
+                    <li>Filament runout sensor and resume print capability</li>
+                    <li>Silent stepper motor drivers</li>
+                </ul>
+            `,
             images: ['https://i.postimg.cc/26Qn8VBh/preview-3.jpg', 'https://i.postimg.cc/YSw928fq/1739343246627.jpg']
         }, {
-            id: 5,
+            id: 6,
             title: 'Syringe Pump Prototype',
             description: 'Proof of concept syringe pump using stepper motor and lead screw mechanism for medical applications.',
             longDescription: `
-                    <p>A precision syringe pump prototype developed as a proof of concept for medical and laboratory applications. The system uses a stepper motor and lead screw mechanism to achieve accurate and controlled fluid delivery.</p>
-                    <p><strong>Key features:</strong></p>
-                    <ul>
-                        <li>Stepper motor with micro-stepping for smooth operation</li>
-                        <li>Lead screw mechanism for precise linear actuation</li>
-                        <li>Adjustable flow rate control</li>
-                        <li>Compact and modular design</li>
-                        <li>Arduino-based control system</li>
-                        <li>Potential applications: drug delivery, microfluidics, lab automation</li>
-                    </ul>
-                `,
+                <p>A precision syringe pump prototype developed as a proof of concept for medical and laboratory applications. The system uses a stepper motor and lead screw mechanism to achieve accurate and controlled fluid delivery.</p>
+                <p><strong>Key features:</strong></p>
+                <ul>
+                    <li>Stepper motor with micro-stepping for smooth operation</li>
+                    <li>Lead screw mechanism for precise linear actuation</li>
+                    <li>Adjustable flow rate control</li>
+                    <li>Compact and modular design</li>
+                    <li>Arduino-based control system</li>
+                    <li>Potential applications: drug delivery, microfluidics, lab automation</li>
+                </ul>
+            `,
             images: ['https://i.postimg.cc/s2gsn83k/Untitled4.jpg']
         }];
 
-        // ===== CERTIFICATE DATA =====
-        const certificates = [{
-            id: 101,
-            title: 'SOLIDWORKS Professional Mechanical Designer',
-            issuer: 'CSWP – Dassault Systèmes',
-            date: '',
-            description: 'Certified SOLIDWORKS Professional (CSWP) – Mechanical Design. Validates advanced skills in SOLIDWORKS including part modeling, assembly design, and drawing creation.'
-        }, {
-            id: 102,
-            title: 'Mansour Service Department Trainee',
-            issuer: 'Mansour Automotive Group (MAG)',
-            date: '',
-            description: 'Immersive training in automotive maintenance at one of Egypt\'s leading automotive groups. Covered fault detection, diagnosis, repair strategies, routine maintenance, and automotive painting techniques.'
-        }, {
-            id: 103,
-            title: 'Fabrication Technology Internship',
-            issuer: 'EME Innovation Hub – ASIUT',
-            date: '08/2021 – 09/2021',
-            description: 'Comprehensive fabrication technology track covering: CAD using SolidWorks, CAM using CorelDraw, ArtCam, Powemill, G-Code and Rendering, Additive manufacturing, and Cutting machines.'
-        }, {
-            id: 104,
-            title: 'Comprehensive Maintenance Internship',
-            issuer: 'Mass for Medical Necessities',
-            date: '',
-            description: 'Extensive hands-on experience in injection molding machines, including Mold Change and Syringe Production Line Maintenance with focus on Assembly, Printing, Packaging, and Sterilization processes.'
-        }, {
-            id: 105,
-            title: 'Fabrication Internship',
-            issuer: 'Arab Engineers Factory for Designs and Medical Instrumentation',
-            date: '',
-            description: 'Practical training in fabrication processes and medical instrumentation design and manufacturing.'
-        }];
+	// ============================================================
+	// CERTIFICATE DATA
+	// ============================================================
+	const certificates = [{
+	    id: 101,
+	    title: 'SOLIDWORKS Professional Mechanical Designer',
+	    issuer: 'CSWP – Dassault Systèmes',
+	    date: '',
+	    description: 'Certified SOLIDWORKS Professional (CSWP) – Mechanical Design. Validates advanced skills in SOLIDWORKS including part modeling, assembly design, and drawing creation.'
+	}, {
+	    id: 106, // NEW
+	    title: 'Computer Vision Bootcamp',
+	    issuer: 'DivisionX',
+	    date: '',
+	    description: 'computer vision bootcamp covering: Image Processing techniques, Neural Networks, Neural Networks for Computer Vision, and MLOps & Deployment.'
+	}, {
+	    id: 102,
+	    title: 'Mansour Service Department Trainee',
+	    issuer: 'Mansour Automotive Group (MAG)',
+	    date: '',
+	    description: 'Immersive training in automotive maintenance at one of Egypt\'s leading automotive groups. Covered fault detection, diagnosis, repair strategies, routine maintenance, and automotive painting techniques.'
+	}, {
+	    id: 103,
+	    title: 'Fabrication Technology Internship',
+	    issuer: 'EME Innovation Hub – ASIUT',
+	    date: '08/2021 – 09/2021',
+	    description: 'Comprehensive fabrication technology track covering: CAD using SolidWorks, CAM using CorelDraw, ArtCam, Powemill, G-Code and Rendering, Additive manufacturing, and Cutting machines.'
+	}, {
+	    id: 104,
+	    title: 'Comprehensive Maintenance Internship',
+	    issuer: 'Mass for Medical Necessities',
+	    date: '',
+	    description: 'Extensive hands-on experience in injection molding machines, including Mold Change and Syringe Production Line Maintenance with focus on Assembly, Printing, Packaging, and Sterilization processes.'
+	}, {
+	    id: 105,
+	    title: 'Fabrication Internship',
+	    issuer: 'Arab Engineers Factory for Designs and Medical Instrumentation',
+	    date: '',
+	    description: 'Practical training in fabrication processes and medical instrumentation design and manufacturing.'
+	}];
+	
+        // ============================================================
+        // RENDER EXPERIENCE
+        // ============================================================
+        const experienceTree = document.getElementById('experienceTree');
 
-        // ===== RENDER PROJECTS =====
+        function renderExperiences() {
+            experienceTree.innerHTML = '';
+            experiences.forEach(exp => {
+                const item = document.createElement('div');
+                item.className = 'exp-item';
+                const hasImages = exp.images && exp.images.length > 0;
+                if (!hasImages) item.classList.add('no-images');
+
+                let thumbsHtml = '';
+                if (hasImages) {
+                    thumbsHtml = '<div class="exp-thumbnails">' +
+                        exp.images.slice(0, 3).map(src => `<img src="${src}" alt="${exp.title}" loading="lazy" />`).join('') +
+                        '</div>';
+                }
+
+                const bulletsHtml = exp.bullets && exp.bullets.length
+                    ? '<ul>' + exp.bullets.map(b => `<li>${b}</li>`).join('') + '</ul>'
+                    : '';
+
+                const achievementHtml = exp.achievement
+                    ? `<div class="exp-achievement">${exp.achievement}</div>`
+                    : '';
+
+                item.innerHTML = `
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">${exp.title}</div>
+                            <div class="exp-company">${exp.company}</div>
+                        </div>
+                        <span class="exp-date">${exp.date}</span>
+                    </div>
+                    <div class="exp-desc">
+                        ${bulletsHtml}
+                        ${achievementHtml}
+                    </div>
+                    ${thumbsHtml}
+                    ${hasImages ? '<div class="exp-gallery-hint">view photos</div>' : ''}
+                `;
+
+                if (hasImages) {
+                    item.addEventListener('click', () => openExperienceModal(exp.id));
+                }
+
+                experienceTree.appendChild(item);
+            });
+        }
+
+        // ============================================================
+        // RENDER PROJECTS
+        // ============================================================
         const grid = document.getElementById('projectsGrid');
 
         function renderProjects() {
@@ -1357,19 +1453,21 @@
                 card.className = 'project-card';
                 const img = p.images && p.images.length ? p.images[0] : 'https://picsum.photos/600/400';
                 card.innerHTML = `
-                        <img src="${img}" alt="${p.title}" loading="lazy" />
-                        <div class="project-info">
-                            <h3>${p.title}</h3>
-                            <p>${p.description}</p>
-                            <div class="hint">view project</div>
-                        </div>
-                    `;
+                    <img src="${img}" alt="${p.title}" loading="lazy" />
+                    <div class="project-info">
+                        <h3>${p.title}</h3>
+                        <p>${p.description}</p>
+                        <div class="hint">view project</div>
+                    </div>
+                `;
                 card.addEventListener('click', () => openProjectModal(p.id));
                 grid.appendChild(card);
             });
         }
 
-        // ===== RENDER CERTIFICATES =====
+        // ============================================================
+        // RENDER CERTIFICATES
+        // ============================================================
         const certGrid = document.getElementById('certGrid');
 
         function renderCertificates() {
@@ -1378,18 +1476,20 @@
                 const card = document.createElement('div');
                 card.className = 'cert-card';
                 card.innerHTML = `
-                        <h3>${c.title}</h3>
-                        <div class="cert-issuer">${c.issuer}</div>
-                        ${c.date ? `<span class="cert-date">${c.date}</span>` : ''}
-                        <div class="cert-preview">${c.description.substring(0, 80)}${c.description.length > 80 ? '...' : ''}</div>
-                        <div class="click-hint">view details</div>
-                    `;
+                    <h3>${c.title}</h3>
+                    <div class="cert-issuer">${c.issuer}</div>
+                    ${c.date ? `<span class="cert-date">${c.date}</span>` : ''}
+                    <div class="cert-preview">${c.description.substring(0, 80)}${c.description.length > 80 ? '...' : ''}</div>
+                    <div class="click-hint">view details</div>
+                `;
                 card.addEventListener('click', () => openCertModal(c.id));
                 certGrid.appendChild(card);
             });
         }
 
-        // ===== MODAL SYSTEM =====
+        // ============================================================
+        // MODAL SYSTEM (shared)
+        // ============================================================
         const modalOverlay = document.getElementById('modalOverlay');
         const modalGallery = document.getElementById('modalGallery');
         const sliderContainer = document.getElementById('sliderContainer');
@@ -1405,21 +1505,59 @@
 
         let currentImages = [];
         let currentIndex = 0;
-        let isProjectModal = true;
+        let galleryEnabled = false;
+
+        function openExperienceModal(id) {
+            const exp = experiences.find(e => e.id === id);
+            if (!exp) return;
+
+            modalTitle.textContent = exp.title;
+            modalSub.textContent = exp.company;
+            modalDate.textContent = exp.date || '';
+
+            let descHtml = '';
+            if (exp.bullets && exp.bullets.length) {
+                descHtml += '<ul>' + exp.bullets.map(b => `<li>${b}</li>`).join('') + '</ul>';
+            }
+            if (exp.achievement) {
+                descHtml += `<div class="exp-achievement" style="margin-top:12px;padding:10px 16px;background:var(--accent-glow);border-radius:12px;border-left:3px solid var(--accent2);font-size:0.95rem;color:var(--text-secondary);">${exp.achievement}</div>`;
+            }
+            modalDescription.innerHTML = descHtml;
+
+            currentImages = exp.images || [];
+            currentIndex = 0;
+
+            if (currentImages.length > 0) {
+                galleryEnabled = true;
+                modalGallery.style.display = 'block';
+                renderSlider();
+                updateSlider();
+            } else {
+                galleryEnabled = false;
+                modalGallery.style.display = 'none';
+                currentImages = [];
+            }
+
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
         function openProjectModal(id) {
             const proj = projects.find(p => p.id === id);
             if (!proj) return;
-            isProjectModal = true;
-            currentImages = proj.images || ['https://picsum.photos/600/400'];
-            currentIndex = 0;
+
             modalTitle.textContent = proj.title;
             modalSub.textContent = '';
             modalDate.textContent = '';
             modalDescription.innerHTML = proj.longDescription || `<p>${proj.description}</p>`;
+
+            currentImages = proj.images || ['https://picsum.photos/600/400'];
+            currentIndex = 0;
+            galleryEnabled = true;
             modalGallery.style.display = 'block';
             renderSlider();
             updateSlider();
+
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1427,12 +1565,16 @@
         function openCertModal(id) {
             const cert = certificates.find(c => c.id === id);
             if (!cert) return;
-            isProjectModal = false;
+
             modalTitle.textContent = cert.title;
             modalSub.textContent = cert.issuer;
             modalDate.textContent = cert.date || '';
             modalDescription.innerHTML = `<p>${cert.description}</p>`;
+
+            currentImages = [];
+            galleryEnabled = false;
             modalGallery.style.display = 'none';
+
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1443,18 +1585,20 @@
             currentImages.forEach((url, i) => {
                 const img = document.createElement('img');
                 img.src = url;
-                img.alt = `Image ${i+1}`;
+                img.alt = `Image ${i + 1}`;
                 img.dataset.index = i;
                 if (i === 0) img.classList.add('active');
                 sliderContainer.appendChild(img);
 
                 const thumb = document.createElement('img');
                 thumb.src = url;
-                thumb.alt = `Thumb ${i+1}`;
+                thumb.alt = `Thumb ${i + 1}`;
                 thumb.dataset.index = i;
                 if (i === 0) thumb.classList.add('active');
-                thumb.addEventListener('click', () => { currentIndex = i;
-                    updateSlider(); });
+                thumb.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateSlider();
+                });
                 thumbnailsContainer.appendChild(thumb);
             });
             updateCounter();
@@ -1482,13 +1626,13 @@
         }
 
         prevBtn.addEventListener('click', () => {
-            if (currentImages.length <= 1 || !isProjectModal) return;
+            if (currentImages.length <= 1) return;
             currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
             updateSlider();
         });
 
         nextBtn.addEventListener('click', () => {
-            if (currentImages.length <= 1 || !isProjectModal) return;
+            if (currentImages.length <= 1) return;
             currentIndex = (currentIndex + 1) % currentImages.length;
             updateSlider();
         });
@@ -1503,7 +1647,7 @@
         let touchStart = 0;
         sliderContainer.addEventListener('touchstart', (e) => { touchStart = e.changedTouches[0].screenX; });
         sliderContainer.addEventListener('touchend', (e) => {
-            if (!isProjectModal) return;
+            if (!galleryEnabled) return;
             const diff = touchStart - e.changedTouches[0].screenX;
             if (Math.abs(diff) > 50) diff > 0 ? nextBtn.click() : prevBtn.click();
         });
@@ -1516,14 +1660,18 @@
         closeBtn.addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
 
-        // ===== THEME =====
+        // ============================================================
+        // THEME
+        // ============================================================
         function toggleTheme() {
             document.body.classList.toggle('light');
             const btn = document.querySelector('.toggle-btn');
             btn.textContent = document.body.classList.contains('light') ? '☀️ Light' : '🌙 Dark';
         }
 
-        // ===== TYPING =====
+        // ============================================================
+        // TYPING ANIMATION
+        // ============================================================
         const words = ['Mechatronics Engineer', 'Mechanical Designer', 'ROS Developer', 'Automotive Enthusiast'];
         let wIdx = 0,
             cIdx = 0,
@@ -1545,7 +1693,10 @@
             setTimeout(typeEffect, deleting ? 40 : 100);
         }
 
-        // ===== INIT =====
+        // ============================================================
+        // INIT
+        // ============================================================
+        renderExperiences();
         renderProjects();
         renderCertificates();
         typeEffect();
